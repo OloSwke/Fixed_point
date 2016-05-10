@@ -1,4 +1,4 @@
-include("src/fixed_point.jl")
+include("src/Term-Paper.jl")
 
 # Set all the parameters to desired value
 parameters = Dict("alpha"=> 0.4,"a"=>0.7, "A"=>0.5, "beta" => 0.98, "k_" => 1)
