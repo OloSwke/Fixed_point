@@ -1,16 +1,28 @@
 module test
-
   using FactCheck, Fixed_point
 
-  context("Some tests") do
+  alpha = 0.4         # Output elasticity of the Financier
+  a = 0.7             # Marginal productivity of the Entrepreneur
+  A = 0.5             # Initial productivity shock
+  beta = 0.98         # Discount rate
+  r = (1-beta)/beta   # From the intertemporal rate of marginal substitution
+  k_ = 1              # Normalized to 1
 
-    facts("lalala") do
+  # Equilibrium values
+  k_eq = k_-(a/alpha)^(1/(alpha-1))   # Capital allocation at equilibrium
+  q_eq = a/r                          # Price of capital at equilibrium
+  n_eq = a*k_eq                       # Net worth
 
-      parameters = Dict("alpha"=> 0.4,"a"=>0.7, "A"=>0.5, "beta" => 0.98, "k_" => 1)
-      @fact Fixed_point.main(parameters, 1000) --> roughly(35.65; atol=0.01)
 
-    end
-
+  facts("Testing the set up") do
+    parameters = Dict("alpha"=> alpha,"a"=> a, "A"=> A, "beta" => beta, "k_" => k_)
+    @fact Fixed_point.main(parameters, 1000) --> roughly(35.65; atol=0.01)
   end
+
+  facts("A Simple test of Kmax") do
+    @fact Fixed_point.Kmax(n_eq) > k_eq
+  end
+
+
 
 end

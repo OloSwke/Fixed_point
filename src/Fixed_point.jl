@@ -1,7 +1,7 @@
 module Fixed_point
 
 using Roots # Needed to find zeros using the fzero() function
-export main, FP
+export main, FP, Kmax
 
   function main(parameters, N)
   # This function will return the fixed point given the parameters
@@ -34,7 +34,7 @@ export main, FP
         (alpha*(k_-y)^(alpha-1)*y)/(1+r)-x
       end
 
-      return fzero(g,[0,1])
+      return fzero(g,[0,k_])
     end
 
 
@@ -45,7 +45,7 @@ export main, FP
         (alpha*(k_-y)^(alpha-1)*y)/(1+r)-(A+x-q_eq)k_eq
       end
 
-      return fzero(f,[0,1])
+      return fzero(f,[0,k_])
     end
 
 
@@ -78,28 +78,32 @@ export main, FP
       function h(y)
         # First term
         z=0
-    		for i in 1:T+2
+    		for i in 1:T+1
     			z = z + alpha*(k_-k[i])^(alpha-1)/(1+r)^i
     		end
 
         # Total expression
-        return z + q_eq/(1+r)^(T) - y
-
+        return z + q_eq/(1+r)^T - y
       end
 
       return fzero(h,[n[1]/A,1000])
-
     end
 
-    function FP() # This function will return the fixed point k_1, using the functions Q and K
+    function FP() # This function will return the fixed point q_0, using the functions Q and K
 
       function j(x)
         Q(K(x)) - x
       end
-      return fzero(j,[q_eq - A + 1/10,1000])
+
+      q[1] = fzero(j,[q_eq - A + 1/10,1000])
+      k[2] = K(q[1])
       # NB: It must be the case that n_0>0, i.e Q(K(x)) > q_eq - A
       # Hence we need q_eq - A + epsilon on our lower bound.
-    end
+
+
+      println("The fixed point is (q_0, k_1) = ($(q[1]), $(k[2]))")
+
+      end
 
   return FP()
 
