@@ -14,11 +14,6 @@ module test
   n_eq = a*k_eq                       # Net worth
 
 
-  facts("Testing the set up") do
-    parameters = Dict("alpha"=> alpha,"a"=> a, "A"=> A, "beta" => beta, "k_" => k_)
-    @fact Fixed_point.main(parameters, 1000) --> roughly(35.65; atol=0.01)
-  end
-
   facts("A Simple test of Kmax") do
     @fact Fixed_point.Kmax(n_eq) > k_eq
   end

@@ -100,7 +100,6 @@ export main, FP, Kmax
       # NB: It must be the case that n_0>0, i.e Q(K(x)) > q_eq - A
       # Hence we need q_eq - A + epsilon on our lower bound.
 
-
       println("The fixed point is (q_0, k_1) = ($(q[1]), $(k[2]))")
 
       end
