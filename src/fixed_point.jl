@@ -1,9 +1,9 @@
-module Pikachu
+module Solver
 
 using Roots # Needed to find zeros using the fzero() function
-export fixed_point, FP
+export main, FP
 
-  function fixed_point(parameters, N)
+  function main(parameters, N)
   # This function will return the fixed point given the parameters
   # defined in the dictionary of the main.jl file.
 

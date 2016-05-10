@@ -5,7 +5,7 @@ parameters = Dict("alpha"=> 0.4,"a"=>0.7, "A"=>0.5, "beta" => 0.98, "k_" => 1)
 N = 1000 # Number of periods for the simulation
             # (For our chosen values the model converges rather quickly though)
 
-results = Pikachu.fixed_point(parameters, N)
+results = Solver.main(parameters, N)
 
 # NB: The parameters are defined as follows
   # alpha: Output elasticity of the Financier
