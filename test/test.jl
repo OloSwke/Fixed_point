@@ -15,7 +15,7 @@ module test
 
 
   facts("A Simple test of Kmax") do
-    @fact Fixed_point.Kmax(n_eq) > k_eq
+    @fact Fixed_point.Kmax(n_eq) --> less_than(k_eq)  
   end
 
 
