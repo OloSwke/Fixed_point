@@ -27,17 +27,6 @@ export main, FP, Kmax
     n = zeros(N)                    # path of net worth
     q = zeros(N)                    # path of prices
 
-
-    function Kmax(x=0) # This function will give k_t+1, given a value of n_t
-
-      function g(y)
-        (alpha*(k_-y)^(alpha-1)*y)/(1+r)-x
-      end
-
-      return fzero(g,[0,k_])
-    end
-
-
     function K(x=0) # This function will give k_1, given a value of q_0
       # NB: It must be the case that n_0 > 0, hence q_0 > q_eq - A
 
@@ -56,7 +45,7 @@ export main, FP, Kmax
         k[2] = x
         for i in 2:N-1
           n[i] = a*k[i]
-          k[i+1] = Kmax(n[i])
+          k[i+1] = Kmax(alpha, k_, r, n[i])
         end
         n[N] = a*k[N]
 
@@ -108,5 +97,14 @@ export main, FP, Kmax
 
   end
 
+	function Kmax(alpha, k_, r, x=0) # This function will give k_t+1, given a value of n_t
+  # Kmax has been defined outside of main() to be able to test it with travis.
+
+		function g(y)
+			(alpha*(k_- y)^(alpha-1)*y)/(1+r)-x
+		end
+
+		return fzero(g,[0,k_])
+	end
 
 end
