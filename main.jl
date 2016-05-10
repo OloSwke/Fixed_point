@@ -1,11 +1,11 @@
-include("src/Term-Paper.jl")
+include("src/Fixed_point.jl")
 
 # Set all the parameters to desired value
 parameters = Dict("alpha"=> 0.4,"a"=>0.7, "A"=>0.5, "beta" => 0.98, "k_" => 1)
 N = 1000 # Number of periods for the simulation
             # (For our chosen values the model converges rather quickly though)
 
-results = Solver.main(parameters, N)
+results = Fixed_point.main(parameters, N)
 
 # NB: The parameters are defined as follows
   # alpha: Output elasticity of the Financier

@@ -1,4 +1,4 @@
-module Solver
+module Fixed_point
 
 using Roots # Needed to find zeros using the fzero() function
 export main, FP
