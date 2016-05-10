@@ -1,0 +1,8 @@
+language: julia
+julia:
+  - release
+notifications:
+  email: false
+scripts:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia -e 'Pkg.clone(pwd()); Pkg.build("Term-Paper"); Pkg.test("Term-Paper"; coverage=true)';
